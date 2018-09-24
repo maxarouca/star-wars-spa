@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 import Loader from "../../components/Loader/Loader";
 
+import Pagination from '../../components/Pagination/Pagination'
 
 class Planetas extends Component {
   componentDidMount() {
@@ -15,39 +16,50 @@ class Planetas extends Component {
     }
   }
 
+  nextPage(url){
+    axios.get(url).then(
+      res => {
+        this.props.loadPlanetsSuccess(res.data.results)
+      });
+  }
+
   loadDetails(url) {
     axios.get(url).then(res => this.props.loadDetailsSuccess(res.data));
   }
 
+  renderPlanets(p){
+      return (
+        <div className="col-md-3 card-wrapper" key={p.name}>
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">{p.name}</h5>
+            <div className="card-text">
+              <p>Sexo: {p.gender}</p>
+            </div>
+            <Link
+              to={`/planetas/${p.name}`}
+              onClick={() => this.loadDetails(p.url)}
+              className="btn btn-primary btn-block"
+            >
+              Detalhes
+                      </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   render() {
-    const { planets } = this.props
+    const { planets, apiData } = this.props
     if (planets !== undefined) {
-      console.log(planets)
       return <Fragment>
           <About title="Planetas" subtitle="Aqui você encontrará detalhes sobre todos os Planetas de Star Wars" />
           <div className="container">
             <div className="row">
-              {planets.map(p => (
-                <div className="col-md-3 card-wrapper" key={p.name}>
-                  <div className="card">
-                    <div className="card-body">
-                      <h5 className="card-title">{p.name}</h5>
-                      <div className="card-text">
-                        <p>Sexo: {p.gender}</p>
-                      </div>
-                      <Link
-                        to={`/planetas/${p.name}`}
-                        onClick={() => this.loadDetails(p.url)}
-                        className="btn btn-primary btn-block"
-                      >
-                        Detalhes
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {planets.map(p => this.renderPlanets(p))}
             </div>
+            {/* <Pagination next={() => this.nextPage(apiData.next)}></Pagination>
+            <Pagination onChange={this.onChange} current={this.state.current} total={25} />; */}
           </div>
         </Fragment>;
     }
@@ -58,14 +70,16 @@ class Planetas extends Component {
 
 const mapStateToProps = state => {
   return {
-    planets: state.planets.data.results
+    planets: state.planets.data.results,
+    apiData: state.planets.data
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     loadPlanets: () => dispatch(ActionCreators.loadPlanetsRequest()),
-    loadDetailsSuccess: (data) => dispatch(ActionCreators.loadDetailsSuccess(data))
+    loadPlanetsSuccess: (data) => dispatch(ActionCreators.loadPlanetsSuccess(data)),
+    loadDetailsSuccess: (data) => dispatch(ActionCreators.loadDetailsSuccess(data)),
   };
 };
 

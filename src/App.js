@@ -5,7 +5,6 @@ import store from "./redux";
 import "font-awesome/css/font-awesome.css";
 import { Route, Switch } from "react-router-dom";
 
-
 import Navigation from './components/Navigation/Navigation'
 import Footer from "./components/Footer/Footer";
 
@@ -13,12 +12,12 @@ import Home from "./pages/Home";
 import PersonagensHome from "./pages/personagens/PersonagensHome";
 import PlanetasHome from "./pages/planetas/PlanetasHome";
 import EspaconavesHome from "./pages/espaconaves/EspaconavesHome";
-
+import Login from './pages/Login/Login'
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { navBarShrink: "" };
+    this.state = { navBarShrink: "", isAuth: false };
     this.handleScroll = this.handleScroll.bind(this);
   }
 
@@ -36,23 +35,33 @@ class App extends Component {
     const nbs = window.pageYOffset > 100 ? "navbar-shrink" : "";
     this.setState({ navBarShrink: nbs });
   }
+  
+  login = async (email, passwd) => {
+    const {auth} = this.props
+    try{
+    const user = await auth.signInWithEmailAndPassword(email, passwd)
+    console.log('logar', email, passwd, user)      
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
 
   render() {
     const nbs = this.state ? this.state.navBarShrink : "";
-    return (
-      <Provider store={store}>
+    return <Provider store={store}>
         <Fragment>
-          <Navigation navBarShrink={nbs} />
+          <Navigation auth={this.state.auth} navBarShrink={nbs} />
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" render={props => <Home {...props} auth={this.state.isAuth} />} />
             <Route path="/personagens" component={PersonagensHome} />
             <Route path="/planetas" component={PlanetasHome} />
             <Route path="/espaconaves" component={EspaconavesHome} />
+            <Route path="/login" render={props => <Login {...props} login={this.login} />} />
           </Switch>
-          <Footer></Footer>
+          <Footer />
         </Fragment>
-      </Provider>
-    );
+      </Provider>;
   }
 }
 

@@ -1,0 +1,13 @@
+nav{
+    display: flex;
+    justify-content: center;
+}
+
+nav .page-link{
+  color: #161616;
+  font-weight: bold;
+}
+nav .page-link:hover{
+  color: #64a19d;
+  font-weight: bold;
+}

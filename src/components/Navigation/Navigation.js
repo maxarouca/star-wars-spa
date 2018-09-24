@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import './styles.css'
 import Logo from './../../assets/logo_top.png'
 import {Link} from 'react-router-dom'
@@ -34,6 +34,7 @@ class Navigation extends Component {
           </button>
           <div className={`collapse navbar-collapse ${show}`} id="navbarResponsive">
             <ul className="navbar-nav ml-auto">
+            {this.props.auth && <Fragment>
               <li className="nav-item">
               <Link className="nav-link" to="/personagens">Personagens</Link>
               </li>
@@ -43,8 +44,9 @@ class Navigation extends Component {
               <li className="nav-item">
               <Link className="nav-link" to="/espaconaves">Espaçonaves</Link>
               </li>
+              </Fragment>}
               <li className="nav-item">
-              <Link to="/" className="nav-link btn btn-primary btn-register">
+              <Link to="/login" className="nav-link btn btn-primary btn-register">
                   Entrar
                 </Link>
               </li>
