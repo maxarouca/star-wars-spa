@@ -7,7 +7,9 @@ import {Link} from 'react-router-dom'
 
 class Planetas extends Component {
   componentDidMount() {
-    this.props.loadData()
+    if (this.props.planets === undefined) {
+      this.props.loadPlanets();
+    }
   }
   render() {
     const { planets } = this.props
@@ -50,7 +52,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return { loadData: () => dispatch(ActionCreators.loadPlanetsRequest()) };
+  return {
+    loadPlanets: () => dispatch(ActionCreators.loadPlanetsRequest()),
+    loadDetails: (url) => dispatch(ActionCreators.loadDetailsRequest(url))
+  };
 };
 
 export default connect(

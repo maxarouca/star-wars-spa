@@ -10,6 +10,8 @@ export const {
   loadPlanetsSuccess: ['data'],
   loadStarshipsRequest: [],
   loadStarshipsSuccess: ['data'],
+  loadDetailsRequest: [],
+  loadDetailsSuccess: ['data'],
 })
 
 export default Creators;

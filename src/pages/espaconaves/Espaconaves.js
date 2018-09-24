@@ -8,13 +8,19 @@ import { Link } from 'react-router-dom'
 
 class Espaconaves extends Component {
   componentDidMount() {
-    this.props.loadData()
+    if (this.props.starships === undefined) {
+      this.props.loadStarships();
+    }
   }
   render() {
-    const { starships } = this.props
+    const { starships } = this.props;
     if (starships !== undefined) {
-      return <Fragment>
-          <About title="Espaconaves" subtitle="Aqui você encontrará detalhes sobre todos os Espaconaves de Star Wars" />
+      return (
+        <Fragment>
+          <About
+            title="Espaconaves"
+            subtitle="Aqui você encontrará detalhes sobre todos os Espaconaves de Star Wars"
+          />
           <div className="container">
             <div className="row">
               {starships.map(p => (
@@ -38,9 +44,10 @@ class Espaconaves extends Component {
               ))}
             </div>
           </div>
-        </Fragment>;
+        </Fragment>
+      );
     }
-    return <h1>Carregando</h1>
+    return <h1>Carregando</h1>;
   }
 }
 
@@ -52,7 +59,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return { loadData: () => dispatch(ActionCreators.loadStarshipsRequest()) };
+  return { 
+    loadStarships: () => dispatch(ActionCreators.loadStarshipsRequest()),
+    loadDetails: (url) => dispatch(ActionCreators.loadDetailsRequest(url))
+  
+  };
 };
 
 export default connect(

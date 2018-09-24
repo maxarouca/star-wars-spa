@@ -4,11 +4,24 @@ import { connect } from "react-redux";
 import ActionCreators from "../../redux/actionCreators";
 import '../styles.css'
 import { Link} from 'react-router-dom'
+import axios from 'axios'
 
 class Personagens extends Component {
-  componentDidMount(){
-    this.props.loadData()
+  constructor (props) {
+    super(props)
+    this.loadDetails = this.loadDetails.bind(this)
   }
+  
+  componentDidMount(){
+    if(this.props.people === undefined){
+      this.props.loadPersonagens();
+    }
+  }
+
+  loadDetails(url){
+    axios.get(url).then(res => this.props.loadDetailsSuccess(res.data));
+  }
+
   render() {
     const {people} = this.props
     if(people !== undefined){
@@ -16,24 +29,25 @@ class Personagens extends Component {
         <About title="Personagens" subtitle="Aqui você encontrará detalhes sobre todos os personagens de Star Wars" />
         <div className="container">
           <div className="row">
-            { 
-              people.map(p => 
-                <div className="col-md-3 card-wrapper" key={p.name}>
-                  <div className="card">
-                    {/* <img className="card-img-top" src="..." alt="Card image cap" /> */}
-                    <div className="card-body">
-                      <h5 className="card-title">{p.name}</h5>
-                      <div className="card-text">
-                        <p>Sexo: {p.gender}</p>
-                      </div>
-                      <Link to={`/personagens/${p.name}`} className="btn btn-primary btn-block">
-                        Detalhes
-                      </Link>
+            {people.map(p => (
+              <div className="col-md-3 card-wrapper" key={p.name}>
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">{p.name}</h5>
+                    <div className="card-text">
+                      <p>Sexo: {p.gender}</p>
                     </div>
+                    <Link
+                      to={`/personagens/${p.name}`}
+                      onClick={() => this.loadDetails(p.url)}
+                      className="btn btn-primary btn-block"
+                    >
+                      Detalhes
+                    </Link>
                   </div>
                 </div>
-              )
-            }
+              </div>
+            ))}
           </div>
         </div>
       </Fragment>;
@@ -50,7 +64,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return { loadData: () => dispatch(ActionCreators.loadPeoplesRequest()) };
+  return { 
+    loadPersonagens: () => dispatch(ActionCreators.loadPeoplesRequest()),
+    loadDetailsSuccess: (data) => dispatch(ActionCreators.loadDetailsSuccess(data))
+   };
 };
 
 export default connect(
