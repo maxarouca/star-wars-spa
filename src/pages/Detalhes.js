@@ -10,9 +10,10 @@ class Detalhes extends Component {
   }
   
   componentDidMount(){
-    axios.get(url).then(res => {
-      this.setState(details= res.data)
-    })
+    // axios.get(url).then(res => {
+    //   this.setState(details= res.data)
+    // })
+    console.log(this.props)
   }
   render () {
     return (

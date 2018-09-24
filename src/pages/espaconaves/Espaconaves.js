@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react'
-import About from "../components/About/About";
+import About from "../../components/About/About";
 import { connect } from "react-redux";
-import ActionCreators from "../redux/actionCreators";
-import './styles.css'
+import ActionCreators from "../../redux/actionCreators";
+import '../styles.css'
+import { Link } from 'react-router-dom'
+
 
 class Espaconaves extends Component {
   componentDidMount() {
@@ -24,9 +26,12 @@ class Espaconaves extends Component {
                       <div className="card-text">
                         <p>Sexo: {p.gender}</p>
                       </div>
-                      <a href="#" className="btn btn-primary btn-block">
+                      <Link
+                        to={`/planetas/${p.name}`}
+                        className="btn btn-primary btn-block"
+                      >
                         Detalhes
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>

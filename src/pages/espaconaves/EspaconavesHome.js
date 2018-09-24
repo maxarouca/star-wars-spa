@@ -1,18 +1,18 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/actionCreators";
-import '../styles.css'
-import { Route } from 'react-router-dom'
+import "../styles.css";
+import { Route } from "react-router-dom";
 
-import Personagens from './Personagens'
+import Espaconaves from './Espaconaves'
 import Detalhes from '../Detalhes'
 
-class PersonagensHome extends Component {
+class EspaconavesHome extends Component {
   render() {
-      return <Fragment>
-        <Route exact path={`${this.props.match.path}/`} component={Personagens} />
-        <Route exact path={`${this.props.match.path}/:name`} component={Detalhes} />
-      </Fragment>;
+    return <Fragment>
+      <Route exact path={`${this.props.match.path}/`} component={Espaconaves} />
+      <Route exact path={`${this.props.match.path}/:name`} component={Detalhes} />
+    </Fragment>;
   }
 }
 
@@ -30,4 +30,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PersonagensHome);
+)(EspaconavesHome);

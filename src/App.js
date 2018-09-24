@@ -10,9 +10,9 @@ import Navigation from './components/Navigation/Navigation'
 import Footer from "./components/Footer/Footer";
 
 import Home from "./pages/Home";
-import Personagens from "./pages/personagens/Personagens";
-import Planetas from "./pages/Planetas";
-import Espaconaves from "./pages/Espaconaves";
+import PersonagensHome from "./pages/personagens/PersonagensHome";
+import PlanetasHome from "./pages/planetas/PlanetasHome";
+import EspaconavesHome from "./pages/espaconaves/EspaconavesHome";
 
 
 class App extends Component {
@@ -45,9 +45,9 @@ class App extends Component {
           <Navigation navBarShrink={nbs} />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/personagens" component={Personagens} />
-            <Route path="/planetas" component={Planetas} />
-            <Route path="/espaconaves" component={Espaconaves} />
+            <Route path="/personagens" component={PersonagensHome} />
+            <Route path="/planetas" component={PlanetasHome} />
+            <Route path="/espaconaves" component={EspaconavesHome} />
           </Switch>
           <Footer></Footer>
         </Fragment>

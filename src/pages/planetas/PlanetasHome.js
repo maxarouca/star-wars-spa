@@ -4,15 +4,15 @@ import ActionCreators from "../../redux/actionCreators";
 import '../styles.css'
 import { Route } from 'react-router-dom'
 
-import Personagens from './Personagens'
+import Planetas from './Planetas'
 import Detalhes from '../Detalhes'
 
-class PersonagensHome extends Component {
+class PlanetassHome extends Component {
   render() {
-      return <Fragment>
-        <Route exact path={`${this.props.match.path}/`} component={Personagens} />
-        <Route exact path={`${this.props.match.path}/:name`} component={Detalhes} />
-      </Fragment>;
+    return <Fragment>
+      <Route exact path={`${this.props.match.path}/`} component={Planetas} />
+      <Route exact path={`${this.props.match.path}/:name`} component={Detalhes} />
+    </Fragment>;
   }
 }
 
@@ -30,4 +30,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PersonagensHome);
+)(PlanetassHome);
