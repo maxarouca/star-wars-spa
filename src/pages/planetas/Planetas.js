@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 import ActionCreators from "../../redux/actionCreators";
 import '../styles.css'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
+import Loader from "../../components/Loader/Loader";
+
 
 class Planetas extends Component {
   componentDidMount() {
@@ -11,9 +14,16 @@ class Planetas extends Component {
       this.props.loadPlanets();
     }
   }
+
+  loadDetails(url) {
+    axios.get(url).then(res => this.props.loadDetailsSuccess(res.data));
+  }
+
+
   render() {
     const { planets } = this.props
     if (planets !== undefined) {
+      console.log(planets)
       return <Fragment>
           <About title="Planetas" subtitle="Aqui você encontrará detalhes sobre todos os Planetas de Star Wars" />
           <div className="container">
@@ -28,6 +38,7 @@ class Planetas extends Component {
                       </div>
                       <Link
                         to={`/planetas/${p.name}`}
+                        onClick={() => this.loadDetails(p.url)}
                         className="btn btn-primary btn-block"
                       >
                         Detalhes
@@ -40,7 +51,7 @@ class Planetas extends Component {
           </div>
         </Fragment>;
     }
-    return <h1>Carregando</h1>
+    return <Loader />;
   }
 }
 
@@ -54,7 +65,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     loadPlanets: () => dispatch(ActionCreators.loadPlanetsRequest()),
-    loadDetails: (url) => dispatch(ActionCreators.loadDetailsRequest(url))
+    loadDetailsSuccess: (data) => dispatch(ActionCreators.loadDetailsSuccess(data))
   };
 };
 

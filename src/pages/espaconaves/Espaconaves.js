@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import ActionCreators from "../../redux/actionCreators";
 import '../styles.css'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
+import Loader from '../../components/Loader/Loader'
 
 class Espaconaves extends Component {
   componentDidMount() {
@@ -12,9 +14,15 @@ class Espaconaves extends Component {
       this.props.loadStarships();
     }
   }
+
+  loadDetails(url) {
+    axios.get(url).then(res => this.props.loadDetailsSuccess(res.data));
+  }
+
   render() {
     const { starships } = this.props;
     if (starships !== undefined) {
+      console.log(starships);
       return (
         <Fragment>
           <About
@@ -33,7 +41,8 @@ class Espaconaves extends Component {
                         <p>Sexo: {p.gender}</p>
                       </div>
                       <Link
-                        to={`/planetas/${p.name}`}
+                        to={`/espaconaves/${p.name}`}
+                        onClick={() => this.loadDetails(p.url)}
                         className="btn btn-primary btn-block"
                       >
                         Detalhes
@@ -47,7 +56,7 @@ class Espaconaves extends Component {
         </Fragment>
       );
     }
-    return <h1>Carregando</h1>;
+    return <Loader />;
   }
 }
 
@@ -61,7 +70,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return { 
     loadStarships: () => dispatch(ActionCreators.loadStarshipsRequest()),
-    loadDetails: (url) => dispatch(ActionCreators.loadDetailsRequest(url))
+    loadDetailsSuccess: (data) => dispatch(ActionCreators.loadDetailsSuccess(data))
   
   };
 };

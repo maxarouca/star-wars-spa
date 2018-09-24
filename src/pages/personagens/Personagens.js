@@ -5,6 +5,7 @@ import ActionCreators from "../../redux/actionCreators";
 import '../styles.css'
 import { Link} from 'react-router-dom'
 import axios from 'axios'
+import Loader from "../../components/Loader/Loader";
 
 class Personagens extends Component {
   constructor (props) {
@@ -52,7 +53,7 @@ class Personagens extends Component {
         </div>
       </Fragment>;
     }
-    return <h1>Carregando</h1>
+    return <Loader />;
   }
 }
 
