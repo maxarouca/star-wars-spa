@@ -1,21 +1,23 @@
 import React, { Component, Fragment } from 'react'
-import About from "../components/About/About";
+import About from "../../components/About/About";
 import { connect } from "react-redux";
-import ActionCreators from "../redux/actionCreators";
-import './styles.css'
+import ActionCreators from "../../redux/actionCreators";
+import '../styles.css'
+import { Link, Route, Switch} from 'react-router-dom'
 
-class Espaconaves extends Component {
-  componentDidMount() {
+class Personagens extends Component {
+  componentDidMount(){
     this.props.loadData()
   }
   render() {
-    const { starships } = this.props
-    if (starships !== undefined) {
-      return <Fragment>
-          <About title="Espaconaves" subtitle="Aqui você encontrará detalhes sobre todos os Espaconaves de Star Wars" />
-          <div className="container">
-            <div className="row">
-              {starships.map(p => (
+    const {people} = this.props
+    if(people !== undefined){
+    return <Fragment>
+        <About title="Personagens" subtitle="Aqui você encontrará detalhes sobre todos os personagens de Star Wars" />
+        <div className="container">
+          <div className="row">
+            { 
+              people.map(p => 
                 <div className="col-md-3 card-wrapper" key={p.name}>
                   <div className="card">
                     {/* <img className="card-img-top" src="..." alt="Card image cap" /> */}
@@ -24,16 +26,17 @@ class Espaconaves extends Component {
                       <div className="card-text">
                         <p>Sexo: {p.gender}</p>
                       </div>
-                      <a href="#" className="btn btn-primary btn-block">
+                      <Link to={`/personagens/:id`} className="btn btn-primary btn-block">
                         Detalhes
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              )
+            }
           </div>
-        </Fragment>;
+        </div>
+      </Fragment>;
     }
     return <h1>Carregando</h1>
   }
@@ -42,15 +45,15 @@ class Espaconaves extends Component {
 
 const mapStateToProps = state => {
   return {
-    starships: state.starships.data.results
+    people: state.people.data.results
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return { loadData: () => dispatch(ActionCreators.loadStarshipsRequest()) };
+  return { loadData: () => dispatch(ActionCreators.loadPeoplesRequest()) };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Espaconaves);
+)(Personagens);

@@ -10,7 +10,7 @@ class Planetas extends Component {
   }
   render() {
     const { planets } = this.props
-    if (planets != undefined) {
+    if (planets !== undefined) {
       return <Fragment>
         <About title="Planetas" subtitle="Aqui você encontrará detalhes sobre todos os Planetas de Star Wars" />
         <div className="container">

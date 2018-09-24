@@ -10,7 +10,7 @@ import Navigation from './components/Navigation/Navigation'
 import Footer from "./components/Footer/Footer";
 
 import Home from "./pages/Home";
-import Personagens from "./pages/Personagens";
+import Personagens from "./pages/personagens/Personagens";
 import Planetas from "./pages/Planetas";
 import Espaconaves from "./pages/Espaconaves";
 

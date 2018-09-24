@@ -8,19 +8,25 @@ import starships from "../../assets/starships.jpg";
 const Projects = () => {
   return <section id="projects" className="projects-section bg-light">
       <div className="container">
-        <div className="row align-items-center no-gutters mb-4 mb-lg-5">
-          <div className="col-xl-8 col-lg-7">
-            <img className="img-fluid mb-3 mb-lg-0" src={personagens} alt="" />
+
+        <div className="row justify-content-center no-gutters">
+          <div className="col-lg-6">
+            <img className="img-fluid" src={personagens} alt="" />
           </div>
-          <div className="col-xl-4 col-lg-5">
-            <div className="featured-text text-center text-lg-left">
-              <Link to="/personagens">
-                <h4>Personagens</h4>
-              </Link>
-              <p className="text-black-50 mb-0">
-                Obtenha detalhes de todos os personagens existentes nos filmes
-                da saga!
-              </p>
+          <div className="col-lg-6 order-lg-first">
+            <div className="bg-black text-center h-100 project">
+              <div className="d-flex h-100">
+                <div className="project-text w-100 my-auto text-center text-lg-right">
+                  <Link to="/personagens">
+                  <h4 className="text-black-50">Personagens</h4>
+                  </Link>
+                  <p className="mb-0 text-white-50">
+                    Obtenha detalhes de todos os personagens existentes nos
+                  filmes da saga!
+                  </p>
+                  <hr className="d-none d-lg-block mb-0 right" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -33,7 +39,7 @@ const Projects = () => {
             <div className="bg-black text-center h-100 project">
               <div className="d-flex h-100">
                 <div className="project-text w-100 my-auto text-center text-lg-left">
-                  <Link to="planetas">
+                  <Link to="/planetas">
                     <h4 className="text-black-50">Planetas</h4>
                   </Link>
                   <p className="mb-0 text-white-50">
