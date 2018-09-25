@@ -45,11 +45,13 @@ class Navigation extends Component {
               <Link className="nav-link" to="/espaconaves">Espaçonaves</Link>
               </li>
               </Fragment>}
+              {!this.props.auth && <Fragment>
               <li className="nav-item">
               <Link to="/login" className="nav-link btn btn-primary btn-register">
                   Entrar
                 </Link>
               </li>
+              </Fragment>}
             </ul>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import About from "../../components/About/About";
 import './styles.css'
+import { Redirect } from "react-router-dom";
 
 
 class Login extends Component {
@@ -23,7 +24,10 @@ class Login extends Component {
     this.props.login(this.state.email, this.state.passwd)
   }
 
-  render() { 
+  render() {
+    if(this.props.auth){
+      return <Redirect to="/" />
+    }
     return <Fragment>
       <About title="Login" subtitle="Entre agora e confira detalhes sobre a saga Star Wars!" />
       <div className="container">

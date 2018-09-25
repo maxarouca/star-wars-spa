@@ -39,8 +39,9 @@ class App extends Component {
   login = async (email, passwd) => {
     const {auth} = this.props
     try{
-    const user = await auth.signInWithEmailAndPassword(email, passwd)
-    console.log('logar', email, passwd, user)      
+    await auth.signInWithEmailAndPassword(email, passwd)
+    console.log('logar', email, passwd)
+    this.setState({ ...this.state, isAuth: true}) 
     }
     catch(err){
       console.log(err)
@@ -51,13 +52,13 @@ class App extends Component {
     const nbs = this.state ? this.state.navBarShrink : "";
     return <Provider store={store}>
         <Fragment>
-          <Navigation auth={this.state.auth} navBarShrink={nbs} />
+          <Navigation auth={this.state.isAuth} navBarShrink={nbs} />
           <Switch>
             <Route exact path="/" render={props => <Home {...props} auth={this.state.isAuth} />} />
             <Route path="/personagens" component={PersonagensHome} />
             <Route path="/planetas" component={PlanetasHome} />
             <Route path="/espaconaves" component={EspaconavesHome} />
-            <Route path="/login" render={props => <Login {...props} login={this.login} />} />
+            <Route path="/login" render={props => <Login {...props} login={this.login} auth={this.state.isAuth}/>} />
           </Switch>
           <Footer />
         </Fragment>
