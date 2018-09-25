@@ -53,7 +53,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 To be able to log in and access the information, use the following data:
 
 - email: maximiler@gmail.com
-- senha? 123456
+- senha: 123456
 
 The Firebase Authentication API was used as a login form.
 
