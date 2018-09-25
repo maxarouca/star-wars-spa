@@ -1,4 +1,7 @@
-#Weather App
+#Star Wras SPA
+
+![Star Wars Logo](https://cdn.iconscout.com/public/images/icon/free/png-256/starwars-star-wars-logo-38ccd42a554039a8-256x256.png)
+
 
 Star Wars SPA using React and Redux, consuming the api [Star Wars API](https://swapi.co).
 
